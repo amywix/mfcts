@@ -951,6 +951,83 @@
             return new Date(dateString).toLocaleDateString(undefined, options);
         }
     </script>
+    <script>
+  document.getElementById('printTimesheet').addEventListener('click', function () {
+    // Create a new window for printing
+    const printWindow = window.open('', '', 'width=800,height=600');
+    const style = `
+      <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { text-align: center; color: #2563eb; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f3f4f6; }
+      </style>
+    `;
+
+    const header = `
+      <h1>Support Worker Timesheet Summary</h1>
+      <p><strong>Support Worker:</strong> ${document.getElementById('supportWorkerName').value}</p>
+      <p><strong>Week Starting:</strong> ${document.getElementById('weekStarting').value}</p>
+    `;
+
+    let table = `
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Shift</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Hours</th>
+            <th>Client</th>
+            <th>Sleepover</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    document.querySelectorAll('.shift-row').forEach(row => {
+      const day = row.dataset.day;
+      const shift = row.dataset.shift;
+      const start = row.querySelector('.start-time').value;
+      const end = row.querySelector('.end-time').value;
+      const hours = row.querySelector('.hours-cell').textContent;
+      const client = row.querySelector('.client-select').value;
+      const sleep = row.querySelector('.sleepover-checkbox').checked ? 'Yes' : 'No';
+
+      if (start || end || hours !== '0.00') {
+        table += `
+          <tr>
+            <td>${day}</td>
+            <td>${shift}</td>
+            <td>${start}</td>
+            <td>${end}</td>
+            <td>${hours}</td>
+            <td>${client}</td>
+            <td>${sleep}</td>
+          </tr>
+        `;
+      }
+    });
+
+    table += `</tbody></table>`;
+
+    const totals = `
+      <p><strong>Total Hours:</strong> ${document.getElementById('summaryTotalHours').textContent}</p>
+      <p><strong>Days Worked:</strong> ${document.getElementById('daysWorked').textContent}</p>
+      <p><strong>Total Shifts:</strong> ${document.getElementById('totalShifts').textContent}</p>
+      <p><strong>Sleepovers:</strong> ${document.getElementById('totalSleepovers').textContent}</p>
+    `;
+
+    printWindow.document.write(`<!DOCTYPE html><html><head><title>Timesheet Print</title>${style}</head><body>${header}${table}${totals}</body></html>`);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+  });
+</script>
+
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'949bd44a07f932a4',t:'MTc0ODkxODQ2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;" src="./saved_resource.html"></iframe>
 
 </body></html>
