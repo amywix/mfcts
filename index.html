@@ -1,169 +1,2074 @@
-<!-- Dynamic Timesheet with Auto Hours and PDF Export -->
 <!DOCTYPE html>
+<!-- saved from url=(0140)https://bczy1e3q1n0f6w5r.canva-hosted-embed.com/codelet/AAEAEGJjenkxZTNxMW4wZjZ3NXIAAAAAAZc40EN6vjpc9dzGZw6RNph9EMaIJmRmh_T-jvQvTAR4ZMgvf4I/ -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dynamic Timesheet</title>
-  <style>
-    table, th, td { border: 1px solid #ccc; border-collapse: collapse; padding: 8px; }
-    input, select { width: 100%; }
-  </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Worker Timesheet</title>
+    <script src="./saved_resource"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff;
+        }
+
+        .timesheet-container {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .shift-row:hover {
+            background-color: #f0f7ff;
+        }
+
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-1px);
+            }
+
+        .day-header {
+            background-color: #e0f2fe;
+        }
+
+        .sleepover-checked {
+            background-color: #e0f7fa;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+            }
+
+            .timesheet-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .print-break {
+                page-break-after: always;
+            }
+
+            .print-friendly {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+    <style>
+        *, ::before, ::after {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x:;
+            --tw-pan-y:;
+            --tw-pinch-zoom:;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position:;
+            --tw-gradient-via-position:;
+            --tw-gradient-to-position:;
+            --tw-ordinal:;
+            --tw-slashed-zero:;
+            --tw-numeric-figure:;
+            --tw-numeric-spacing:;
+            --tw-numeric-fraction:;
+            --tw-ring-inset:;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur:;
+            --tw-brightness:;
+            --tw-contrast:;
+            --tw-grayscale:;
+            --tw-hue-rotate:;
+            --tw-invert:;
+            --tw-saturate:;
+            --tw-sepia:;
+            --tw-drop-shadow:;
+            --tw-backdrop-blur:;
+            --tw-backdrop-brightness:;
+            --tw-backdrop-contrast:;
+            --tw-backdrop-grayscale:;
+            --tw-backdrop-hue-rotate:;
+            --tw-backdrop-invert:;
+            --tw-backdrop-opacity:;
+            --tw-backdrop-saturate:;
+            --tw-backdrop-sepia:;
+            --tw-contain-size:;
+            --tw-contain-layout:;
+            --tw-contain-paint:;
+            --tw-contain-style:
+        }
+
+        ::backdrop {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x:;
+            --tw-pan-y:;
+            --tw-pinch-zoom:;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position:;
+            --tw-gradient-via-position:;
+            --tw-gradient-to-position:;
+            --tw-ordinal:;
+            --tw-slashed-zero:;
+            --tw-numeric-figure:;
+            --tw-numeric-spacing:;
+            --tw-numeric-fraction:;
+            --tw-ring-inset:;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur:;
+            --tw-brightness:;
+            --tw-contrast:;
+            --tw-grayscale:;
+            --tw-hue-rotate:;
+            --tw-invert:;
+            --tw-saturate:;
+            --tw-sepia:;
+            --tw-drop-shadow:;
+            --tw-backdrop-blur:;
+            --tw-backdrop-brightness:;
+            --tw-backdrop-contrast:;
+            --tw-backdrop-grayscale:;
+            --tw-backdrop-hue-rotate:;
+            --tw-backdrop-invert:;
+            --tw-backdrop-opacity:;
+            --tw-backdrop-saturate:;
+            --tw-backdrop-sepia:;
+            --tw-contain-size:;
+            --tw-contain-layout:;
+            --tw-contain-paint:;
+            --tw-contain-style:
+        }
+        /* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+            border-color: #e5e7eb
+        }
+
+        ::after, ::before {
+            --tw-content: ''
+        }
+
+        :host, html {
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -moz-tab-size: 4;
+            tab-size: 4;
+            font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-feature-settings: normal;
+            font-variation-settings: normal;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        body {
+            margin: 0;
+            line-height: inherit
+        }
+
+        hr {
+            height: 0;
+            color: inherit;
+            border-top-width: 1px
+        }
+
+        abbr:where([title]) {
+            -webkit-text-decoration: underline dotted;
+            text-decoration: underline dotted
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-size: inherit;
+            font-weight: inherit
+        }
+
+        a {
+            color: inherit;
+            text-decoration: inherit
+        }
+
+        b, strong {
+            font-weight: bolder
+        }
+
+        code, kbd, pre, samp {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-feature-settings: normal;
+            font-variation-settings: normal;
+            font-size: 1em
+        }
+
+        small {
+            font-size: 80%
+        }
+
+        sub, sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        table {
+            text-indent: 0;
+            border-color: inherit;
+            border-collapse: collapse
+        }
+
+        button, input, optgroup, select, textarea {
+            font-family: inherit;
+            font-feature-settings: inherit;
+            font-variation-settings: inherit;
+            font-size: 100%;
+            font-weight: inherit;
+            line-height: inherit;
+            letter-spacing: inherit;
+            color: inherit;
+            margin: 0;
+            padding: 0
+        }
+
+        button, select {
+            text-transform: none
+        }
+
+        button, input:where([type=button]), input:where([type=reset]), input:where([type=submit]) {
+            -webkit-appearance: button;
+            background-color: transparent;
+            background-image: none
+        }
+
+        :-moz-focusring {
+            outline: auto
+        }
+
+        :-moz-ui-invalid {
+            box-shadow: none
+        }
+
+        progress {
+            vertical-align: baseline
+        }
+
+        ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+            height: auto
+        }
+
+        [type=search] {
+            -webkit-appearance: textfield;
+            outline-offset: -2px
+        }
+
+        ::-webkit-search-decoration {
+            -webkit-appearance: none
+        }
+
+        ::-webkit-file-upload-button {
+            -webkit-appearance: button;
+            font: inherit
+        }
+
+        summary {
+            display: list-item
+        }
+
+        blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
+            margin: 0
+        }
+
+        fieldset {
+            margin: 0;
+            padding: 0
+        }
+
+        legend {
+            padding: 0
+        }
+
+        menu, ol, ul {
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        dialog {
+            padding: 0
+        }
+
+        textarea {
+            resize: vertical
+        }
+
+            input::placeholder, textarea::placeholder {
+                opacity: 1;
+                color: #9ca3af
+            }
+
+        [role=button], button {
+            cursor: pointer
+        }
+
+        :disabled {
+            cursor: default
+        }
+
+        audio, canvas, embed, iframe, img, object, svg, video {
+            display: block;
+            vertical-align: middle
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto
+        }
+
+        [hidden]:where(:not([hidden=until-found])) {
+            display: none
+        }
+
+        .fixed {
+            position: fixed
+        }
+
+        .bottom-4 {
+            bottom: 1rem
+        }
+
+        .right-4 {
+            right: 1rem
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem
+        }
+
+        .mt-1 {
+            margin-top: 0.25rem
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem
+        }
+
+        .mt-4 {
+            margin-top: 1rem
+        }
+
+        .mt-8 {
+            margin-top: 2rem
+        }
+
+        .block {
+            display: block
+        }
+
+        .flex {
+            display: flex
+        }
+
+        .grid {
+            display: grid
+        }
+
+        .hidden {
+            display: none
+        }
+
+        .h-16 {
+            height: 4rem
+        }
+
+        .h-5 {
+            height: 1.25rem
+        }
+
+        .min-h-screen {
+            min-height: 100vh
+        }
+
+        .w-full {
+            width: 100%
+        }
+
+        .w-5 {
+            width: 1.25rem
+        }
+
+        .min-w-full {
+            min-width: 100%
+        }
+
+        .max-w-6xl {
+            max-width: 72rem
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr))
+        }
+
+        .flex-col {
+            flex-direction: column
+        }
+
+        .items-start {
+            align-items: flex-start
+        }
+
+        .justify-between {
+            justify-content: space-between
+        }
+
+        .gap-4 {
+            gap: 1rem
+        }
+
+        .gap-8 {
+            gap: 2rem
+        }
+
+        .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+            --tw-space-x-reverse: 0;
+            margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+            margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))
+        }
+
+        .space-y-2 > :not([hidden]) ~ :not([hidden]) {
+            --tw-space-y-reverse: 0;
+            margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+            margin-bottom: calc(0.5rem * var(--tw-space-y-reverse))
+        }
+
+        .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+            --tw-space-y-reverse: 0;
+            margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+            margin-bottom: calc(1rem * var(--tw-space-y-reverse))
+        }
+
+        .overflow-hidden {
+            overflow: hidden
+        }
+
+        .overflow-x-auto {
+            overflow-x: auto
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem
+        }
+
+        .rounded-md {
+            border-radius: 0.375rem
+        }
+
+        .rounded {
+            border-radius: 0.25rem
+        }
+
+        .border {
+            border-width: 1px
+        }
+
+        .border-b {
+            border-bottom-width: 1px
+        }
+
+        .border-t {
+            border-top-width: 1px
+        }
+
+        .border-t-2 {
+            border-top-width: 2px
+        }
+
+        .border-gray-200 {
+            --tw-border-opacity: 1;
+            border-color: rgb(229 231 235 / var(--tw-border-opacity, 1))
+        }
+
+        .border-gray-300 {
+            --tw-border-opacity: 1;
+            border-color: rgb(209 213 219 / var(--tw-border-opacity, 1))
+        }
+
+        .border-gray-400 {
+            --tw-border-opacity: 1;
+            border-color: rgb(156 163 175 / var(--tw-border-opacity, 1))
+        }
+
+        .border-red-600 {
+            --tw-border-opacity: 1;
+            border-color: rgb(220 38 38 / var(--tw-border-opacity, 1))
+        }
+
+        .bg-blue-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gray-100 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gray-200 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gray-50 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-green-500 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-green-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(22 163 74 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-white {
+            --tw-bg-opacity: 1;
+            background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gradient-to-r {
+            background-image: linear-gradient(to right, var(--tw-gradient-stops))
+        }
+
+        .from-blue-600 {
+            --tw-gradient-from: #2563eb var(--tw-gradient-from-position);
+            --tw-gradient-to: rgb(37 99 235 / 0) var(--tw-gradient-to-position);
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+        }
+
+        .to-blue-700 {
+            --tw-gradient-to: #1d4ed8 var(--tw-gradient-to-position)
+        }
+
+        .p-4 {
+            padding: 1rem
+        }
+
+        .p-6 {
+            padding: 1.5rem
+        }
+
+        .px-3 {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem
+        }
+
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem
+        }
+
+        .px-2 {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem
+        }
+
+        .py-1 {
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem
+        }
+
+        .pt-4 {
+            padding-top: 1rem
+        }
+
+        .text-left {
+            text-align: left
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem
+        }
+
+        .font-bold {
+            font-weight: 700
+        }
+
+        .font-medium {
+            font-weight: 500
+        }
+
+        .font-semibold {
+            font-weight: 600
+        }
+
+        .uppercase {
+            text-transform: uppercase
+        }
+
+        .leading-normal {
+            line-height: 1.5
+        }
+
+        .text-blue-600 {
+            --tw-text-opacity: 1;
+            color: rgb(37 99 235 / var(--tw-text-opacity, 1))
+        }
+
+        .text-gray-500 {
+            --tw-text-opacity: 1;
+            color: rgb(107 114 128 / var(--tw-text-opacity, 1))
+        }
+
+        .text-gray-600 {
+            --tw-text-opacity: 1;
+            color: rgb(75 85 99 / var(--tw-text-opacity, 1))
+        }
+
+        .text-gray-700 {
+            --tw-text-opacity: 1;
+            color: rgb(55 65 81 / var(--tw-text-opacity, 1))
+        }
+
+        .text-gray-800 {
+            --tw-text-opacity: 1;
+            color: rgb(31 41 55 / var(--tw-text-opacity, 1))
+        }
+
+        .text-red-600 {
+            --tw-text-opacity: 1;
+            color: rgb(220 38 38 / var(--tw-text-opacity, 1))
+        }
+
+        .text-white {
+            --tw-text-opacity: 1;
+            color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+        }
+
+        .opacity-90 {
+            opacity: 0.9
+        }
+
+        .opacity-100 {
+            opacity: 1
+        }
+
+        .opacity-0 {
+            opacity: 0
+        }
+
+        .shadow-lg {
+            --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+        }
+
+        .transition-opacity {
+            transition-property: opacity;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms
+        }
+
+        .duration-300 {
+            transition-duration: 300ms
+        }
+
+        .hover\:bg-blue-700:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:bg-gray-300:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:bg-green-700:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:bg-red-50:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:text-red-800:hover {
+            --tw-text-opacity: 1;
+            color: rgb(153 27 27 / var(--tw-text-opacity, 1))
+        }
+
+        .focus\:outline-none:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px
+        }
+
+        .focus\:ring-2:focus {
+            --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+            --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+            box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)
+        }
+
+        .focus\:ring-blue-500:focus {
+            --tw-ring-opacity: 1;
+            --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity, 1))
+        }
+
+        @media (min-width: 768px) {
+            .md\:mt-0 {
+                margin-top: 0px
+            }
+
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+
+            .md\:grid-cols-4 {
+                grid-template-columns: repeat(4, minmax(0, 1fr))
+            }
+
+            .md\:flex-row {
+                flex-direction: row
+            }
+
+            .md\:items-center {
+                align-items: center
+            }
+
+            .md\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
+                --tw-space-x-reverse: 0;
+                margin-right: calc(1rem * var(--tw-space-x-reverse));
+                margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)))
+            }
+
+            .md\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+                --tw-space-y-reverse: 0;
+                margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+                margin-bottom: calc(0px * var(--tw-space-y-reverse))
+            }
+
+            .md\:p-8 {
+                padding: 2rem
+            }
+
+            .md\:text-3xl {
+                font-size: 1.875rem;
+                line-height: 2.25rem
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Support Worker Timesheet</h1>
+    <div class="min-h-screen p-4 md:p-8">
+        <div class="max-w-6xl mx-auto timesheet-container bg-white rounded-lg overflow-hidden">
 
-  <label for="supportWorkerName">Support Worker:</label>
-  <input type="text" id="supportWorkerName" />
-  <br/>
-  <label for="weekStarting">Week Starting:</label>
-  <input type="date" id="weekStarting" />
-  <br/><br/>
-  <table>
-    <thead>
-      <tr>
-        <th>Day</th><th>Shift</th><th>Start Time</th><th>End Time</th><th>Hours</th><th>Client</th><th>Sleepover</th>
-      </tr>
-    </thead>
-    <tbody id="timesheetBody"></tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4"><strong>Total Hours</strong></td>
-        <td id="totalHours">0.00</td>
-        <td colspan="2"></td>
-      </tr>
-    </tfoot>
-  </table>
-  <br/>
-  <button id="downloadPDF">Download PDF</button>
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-bold">Support Worker Timesheet</h1>
+                        <p class="mt-2 opacity-90">Mackay Family Care & Community Support Assoc Inc. </p>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
+                            <div>
+                                <label class="block text-sm font-medium text-white opacity-90">Support Worker</label>
+                                <input type="text" id="supportWorkerName" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-white opacity-90">Week Starting</label>
+                                <input type="date" id="weekStarting" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    const clients = ["Wayne", "Richard", "Jayden", "Sandra", "Lani", "Jess", "Lorna", "Amy", "Chris", "Brendan", "Kimberly Court"];
+            <!-- Timesheet Controls -->
+            <div class="p-6 border-b no-print">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+                    <div class="flex space-x-2">
+                        <button id="prevWeek" class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-md font-medium">
+                            ← Previous Week
+                        </button>
+                        <button id="nextWeek" class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-md font-medium">
+                            Next Week →
+                        </button>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button id="clearTimesheet" class="text-red-600 hover:text-red-800 font-medium py-2 px-4 border border-red-600 rounded-md hover:bg-red-50">
+                            Clear Timesheet
+                        </button>
+                        <button id="printTimesheet" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md font-medium">
+                            Download Timesheet
+                        </button>
+                       
+                    </div>
+                </div>
+            </div>
 
-    function formatDateDisplay(date) {
-      return date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
-    }
+            <!-- Timesheet Table -->
+            <div class="p-6 print-friendly">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border">
+                        <thead>
+                            <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                <th class="py-3 px-4 text-left border">Day</th>
+                                <th class="py-3 px-4 text-left border">Shift</th>
+                                <th class="py-3 px-4 text-left border">Start Time</th>
+                                <th class="py-3 px-4 text-left border">End Time</th>
+                                <th class="py-3 px-4 text-left border">Hours</th>
+                                <th class="py-3 px-4 text-left border">Client</th>
+                                <th class="py-3 px-4 text-center border">Sleepover</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timesheetBody">
+                            <tr class="day-header">
+                                <td colspan="7" class="py-2 px-4 font-medium text-gray-700 border">
+                                    Monday - 2 June 2025
+                                </td>
+                            </tr>
 
-    function generateTimesheet(startDateStr) {
-      const tbody = document.getElementById('timesheetBody');
-      tbody.innerHTML = '';
+                            <tr class="shift-row" data-day="2025-06-02" data-shift="1">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 1</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-02" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-02" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-02" data-shift="1">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-02" data-shift="1">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-02" data-shift="1">
+                                </td>
+                            </tr>
 
-      const startDate = new Date(startDateStr);
+                            <tr class="shift-row" data-day="2025-06-02" data-shift="2">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 2</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-02" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-02" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-02" data-shift="2">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-02" data-shift="2">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-02" data-shift="2">
+                                </td>
+                            </tr>
 
-      for (let i = 0; i < 7; i++) {
-        const date = new Date(startDate);
-        date.setDate(startDate.getDate() + i);
-        const dateStr = date.toISOString().split('T')[0];
+                            <tr class="shift-row" data-day="2025-06-02" data-shift="3">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 3</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-02" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-02" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-02" data-shift="3">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-02" data-shift="3">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-02" data-shift="3">
+                                </td>
+                            </tr>
 
-        const headerRow = document.createElement('tr');
-        headerRow.innerHTML = `<td colspan="7"><strong>${formatDateDisplay(date)}</strong></td>`;
-        tbody.appendChild(headerRow);
 
-        for (let shift = 1; shift <= 3; shift++) {
-          const row = document.createElement('tr');
-          row.setAttribute('data-day', dateStr);
-          row.setAttribute('data-shift', shift);
+                            <tr class="day-header">
+                                <td colspan="7" class="py-2 px-4 font-medium text-gray-700 border">
+                                    Tuesday - 3 June 2025
+                                </td>
+                            </tr>
 
-          const clientOptions = ['<option value="">Select Client</option>', ...clients.map(c => `<option>${c}</option>`)].join('');
+                            <tr class="shift-row" data-day="2025-06-03" data-shift="1">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 1</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-03" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-03" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-03" data-shift="1">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-03" data-shift="1">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-03" data-shift="1">
+                                </td>
+                            </tr>
 
-          row.innerHTML = `
-            <td></td>
-            <td>Shift ${shift}</td>
-            <td><input type="time" class="start-time" data-day="${dateStr}" data-shift="${shift}" /></td>
-            <td><input type="time" class="end-time" data-day="${dateStr}" data-shift="${shift}" /></td>
-            <td class="hours-cell" data-day="${dateStr}" data-shift="${shift}">0.00</td>
-            <td><select class="client-select" data-day="${dateStr}" data-shift="${shift}">${clientOptions}</select></td>
-            <td style="text-align:center"><input type="checkbox" class="sleepover-checkbox" data-day="${dateStr}" data-shift="${shift}" /></td>
-          `;
-          tbody.appendChild(row);
+                            <tr class="shift-row" data-day="2025-06-03" data-shift="2">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 2</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-03" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-03" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-03" data-shift="2">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-03" data-shift="2">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-03" data-shift="2">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-03" data-shift="3">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 3</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-03" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-03" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-03" data-shift="3">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-03" data-shift="3">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-03" data-shift="3">
+                                </td>
+                            </tr>
+
+
+                            <tr class="day-header">
+                                <td colspan="7" class="py-2 px-4 font-medium text-gray-700 border">
+                                    Wednesday - 4 June 2025
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-04" data-shift="1">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 1</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-04" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-04" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-04" data-shift="1">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-04" data-shift="1">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-04" data-shift="1">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-04" data-shift="2">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 2</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-04" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-04" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-04" data-shift="2">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-04" data-shift="2">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-04" data-shift="2">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-04" data-shift="3">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 3</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-04" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-04" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-04" data-shift="3">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-04" data-shift="3">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-04" data-shift="3">
+                                </td>
+                            </tr>
+
+
+                            <tr class="day-header">
+                                <td colspan="7" class="py-2 px-4 font-medium text-gray-700 border">
+                                    Thursday - 5 June 2025
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-05" data-shift="1">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 1</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-05" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-05" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-05" data-shift="1">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-05" data-shift="1">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-05" data-shift="1">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-05" data-shift="2">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 2</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-05" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-05" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-05" data-shift="2">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-05" data-shift="2">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-05" data-shift="2">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-05" data-shift="3">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 3</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-05" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-05" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-05" data-shift="3">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-05" data-shift="3">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-05" data-shift="3">
+                                </td>
+                            </tr>
+
+
+                            <tr class="day-header">
+                                <td colspan="7" class="py-2 px-4 font-medium text-gray-700 border">
+                                    Friday - 6 June 2025
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-06" data-shift="1">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 1</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-06" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-06" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-06" data-shift="1">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-06" data-shift="1">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-06" data-shift="1">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-06" data-shift="2">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 2</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-06" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-06" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-06" data-shift="2">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-06" data-shift="2">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-06" data-shift="2">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-06" data-shift="3">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 3</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-06" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-06" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-06" data-shift="3">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-06" data-shift="3">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-06" data-shift="3">
+                                </td>
+                            </tr>
+
+
+                            <tr class="day-header">
+                                <td colspan="7" class="py-2 px-4 font-medium text-gray-700 border">
+                                    Saturday - 7 June 2025
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-07" data-shift="1">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 1</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-07" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-07" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-07" data-shift="1">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-07" data-shift="1">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-07" data-shift="1">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-07" data-shift="2">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 2</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-07" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-07" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-07" data-shift="2">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-07" data-shift="2">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-07" data-shift="2">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-07" data-shift="3">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 3</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-07" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-07" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-07" data-shift="3">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-07" data-shift="3">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-07" data-shift="3">
+                                </td>
+                            </tr>
+
+
+                            <tr class="day-header">
+                                <td colspan="7" class="py-2 px-4 font-medium text-gray-700 border">
+                                    Sunday - 8 June 2025
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-08" data-shift="1">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 1</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-08" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-08" data-shift="1">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-08" data-shift="1">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-08" data-shift="1">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-08" data-shift="1">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-08" data-shift="2">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 2</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-08" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-08" data-shift="2">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-08" data-shift="2">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-08" data-shift="2">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-08" data-shift="2">
+                                </td>
+                            </tr>
+
+                            <tr class="shift-row" data-day="2025-06-08" data-shift="3">
+                                <td class="py-2 px-4 border"></td>
+                                <td class="py-2 px-4 border">Shift 3</td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time" data-day="2025-06-08" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time" data-day="2025-06-08" data-shift="3">
+                                </td>
+                                <td class="py-2 px-4 border hours-cell" data-day="2025-06-08" data-shift="3">0.00</td>
+                                <td class="py-2 px-4 border">
+                                    <select class="w-full px-2 py-1 border border-gray-300 rounded client-select" data-day="2025-06-08" data-shift="3">
+                                        <option value="">Select Client</option>
+                                        <option value="Wayne">Wayne</option>
+                                        <option value="Richard">Richard</option>
+                                        <option value="Jayden">Jayden</option>
+                                        <option value="Sandra">Sandra</option>
+                                        <option value="Lani">Lani</option>
+                                        <option value="Jess">Jess</option>
+                                        <option value="Lorna">Lorna</option>
+                                        <option value="Amy">Amy</option>
+                                        <option value="Chris">Chris</option>
+                                        <option value="Brendan">Brendan</option>
+                                        <option value="Kimberly Court">Kimberly Court</option>
+                                    </select>
+                                </td>
+                                <td class="py-2 px-4 border text-center">
+                                    <input type="checkbox" class="w-5 h-5 sleepover-checkbox" data-day="2025-06-08" data-shift="3">
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot>
+                            <tr class="border-t-2 font-semibold text-gray-800">
+                                <td class="py-3 px-4 border" colspan="4">Total Hours</td>
+                                <td class="py-3 px-4 border" id="totalHours">0.00</td>
+                                <td class="py-3 px-4 border" colspan="2"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div class="bg-gray-50 p-6 border-t print-friendly">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-sm font-medium text-gray-500">Total Weekly Hours</h3>
+                        <p class="text-2xl font-bold text-blue-600" id="summaryTotalHours">0.00</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-sm font-medium text-gray-500">Days Worked</h3>
+                        <p class="text-2xl font-bold text-blue-600" id="daysWorked">0</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-sm font-medium text-gray-500">Total Shifts</h3>
+                        <p class="text-2xl font-bold text-blue-600" id="totalShifts">0</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-sm font-medium text-gray-500">Sleepovers</h3>
+                        <p class="text-2xl font-bold text-blue-600" id="totalSleepovers">1</p>
+                    </div>
+                </div>
+
+                <!-- Signature Section -->
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="border-t pt-4">
+                        <p class="text-sm text-gray-500 mb-2">Support Worker Signature</p>
+                        <div class="h-16 border-b border-gray-400"></div>
+                        <p class="text-sm text-gray-500 mt-2">Date: _________________</p>
+                    </div>
+                    <div class="border-t pt-4">
+                        <p class="text-sm text-gray-500 mb-2">Supervisor Signature</p>
+                        <div class="h-16 border-b border-gray-400"></div>
+                        <p class="text-sm text-gray-500 mt-2">Date: _________________</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Message -->
+            <div id="statusMessage" class="fixed bottom-4 right-4 px-4 py-2 rounded-md shadow-lg no-print transition-opacity duration-300 bg-green-500 opacity-0 hidden">Timesheet saved successfully!</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default date to the start of the current week (Sunday)
+            const today = new Date();
+            const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - dayOfWeek); // Go back to Sunday
+
+            const formattedDate = startOfWeek.toISOString().substr(0, 10);
+            document.getElementById('weekStarting').value = formattedDate;
+
+            // Generate timesheet for the current week
+            generateTimesheet(startOfWeek);
+
+            // Load saved data if available
+            loadTimesheet();
+
+            // Event listeners
+            document.getElementById('weekStarting').addEventListener('change', function() {
+                const selectedDate = new Date(this.value);
+                generateTimesheet(selectedDate);
+                loadTimesheet(); // Load any saved data for this week
+            });
+
+            document.getElementById('prevWeek').addEventListener('click', function() {
+                const currentStartDate = new Date(document.getElementById('weekStarting').value);
+                currentStartDate.setDate(currentStartDate.getDate() - 7);
+                document.getElementById('weekStarting').value = currentStartDate.toISOString().substr(0, 10);
+                generateTimesheet(currentStartDate);
+                loadTimesheet();
+            });
+
+            document.getElementById('nextWeek').addEventListener('click', function() {
+                const currentStartDate = new Date(document.getElementById('weekStarting').value);
+                currentStartDate.setDate(currentStartDate.getDate() + 7);
+                document.getElementById('weekStarting').value = currentStartDate.toISOString().substr(0, 10);
+                generateTimesheet(currentStartDate);
+                loadTimesheet();
+            });
+
+            document.getElementById('clearTimesheet').addEventListener('click', function() {
+                if (confirm('Are you sure you want to clear all entries for this week?')) {
+                    clearTimesheet();
+                    showStatusMessage('Timesheet cleared!', 'bg-red-500');
+                }
+            });
+
+            document.getElementById('printTimesheet').addEventListener('click', function() {
+                window.print();
+            });
+
+            document.getElementById('saveTimesheet').addEventListener('click', function() {
+                saveTimesheet();
+                showStatusMessage('Timesheet saved successfully!', 'bg-green-500');
+            });
+
+            // Add event listener to the entire table for input changes
+            document.getElementById('timesheetBody').addEventListener('change', function(e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+                    calculateHours();
+
+                    // Handle sleepover checkbox styling
+                    if (e.target.classList.contains('sleepover-checkbox')) {
+                        const row = e.target.closest('tr');
+                        if (e.target.checked) {
+                            row.classList.add('sleepover-checked');
+                        } else {
+                            row.classList.remove('sleepover-checked');
+                        }
+                    }
+
+                    // Auto-save on change
+                    saveTimesheet();
+                }
+            });
+        });
+
+        // Show status message
+        function showStatusMessage(message, bgClass) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = message;
+            statusMessage.className = 'fixed bottom-4 right-4 px-4 py-2 rounded-md shadow-lg no-print transition-opacity duration-300';
+            statusMessage.classList.add(bgClass);
+            statusMessage.classList.remove('hidden');
+            statusMessage.classList.add('opacity-100');
+
+            setTimeout(() => {
+                statusMessage.classList.remove('opacity-100');
+                statusMessage.classList.add('opacity-0');
+                setTimeout(() => {
+                    statusMessage.classList.add('hidden');
+                }, 300);
+            }, 3000);
         }
+
+        // Generate timesheet structure for a week
+        function generateTimesheet(startDate) {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const tbody = document.getElementById('timesheetBody');
+            tbody.innerHTML = '';
+
+            // Client list
+            const clients = [
+                "Wayne",
+                "Richard",
+                "Jayden",
+                "Sandra",
+                "Lani",
+                "Jess",
+                "Lorna",
+                "Amy",
+                "Chris",
+                "Brendan",
+                "Kimberly Court"
+            ];
+
+            for (let i = 0; i < 7; i++) {
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+                const formattedDate = currentDate.toISOString().substr(0, 10);
+                const dayName = days[i];
+
+                // Day header row
+                const dayRow = document.createElement('tr');
+                dayRow.className = 'day-header';
+                dayRow.innerHTML = `
+                    <td colspan="7" class="py-2 px-4 font-medium text-gray-700 border">
+                        ${dayName} - ${formatDisplayDate(formattedDate)}
+                    </td>
+                `;
+                tbody.appendChild(dayRow);
+
+                // Three shifts per day
+                for (let shift = 1; shift <= 3; shift++) {
+                    const shiftRow = document.createElement('tr');
+                    shiftRow.className = 'shift-row';
+                    shiftRow.dataset.day = formattedDate;
+                    shiftRow.dataset.shift = shift;
+
+                    // Create client options
+                    let clientOptions = '<option value="">Select Client</option>';
+                    clients.forEach(client => {
+                        clientOptions += `<option value="${client}">${client}</option>`;
+                    });
+
+                    shiftRow.innerHTML = `
+                        <td class="py-2 px-4 border"></td>
+                        <td class="py-2 px-4 border">Shift ${shift}</td>
+                        <td class="py-2 px-4 border">
+                            <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded start-time"
+                                data-day="${formattedDate}" data-shift="${shift}">
+                        </td>
+                        <td class="py-2 px-4 border">
+                            <input type="time" class="w-full px-2 py-1 border border-gray-300 rounded end-time"
+                                data-day="${formattedDate}" data-shift="${shift}">
+                        </td>
+                        <td class="py-2 px-4 border hours-cell" data-day="${formattedDate}" data-shift="${shift}">
+                            0.00
+                        </td>
+                        <td class="py-2 px-4 border">
+                            <select class="w-full px-2 py-1 border border-gray-300 rounded client-select"
+                                data-day="${formattedDate}" data-shift="${shift}">
+                                ${clientOptions}
+                            </select>
+                        </td>
+                        <td class="py-2 px-4 border text-center">
+                            <input type="checkbox" class="w-5 h-5 sleepover-checkbox"
+                                data-day="${formattedDate}" data-shift="${shift}">
+                        </td>
+                    `;
+
+                    tbody.appendChild(shiftRow);
+                }
+            }
+        }
+
+        // Calculate hours for each shift and update totals
+        function calculateHours() {
+            let totalHours = 0;
+            let daysWorked = new Set();
+            let shiftsWorked = 0;
+            let sleepovers = 0;
+
+            // Process each shift row
+            const shiftRows = document.querySelectorAll('.shift-row');
+            shiftRows.forEach(row => {
+                const day = row.dataset.day;
+                const shift = row.dataset.shift;
+
+                const startTimeInput = row.querySelector(`.start-time[data-day="${day}"][data-shift="${shift}"]`);
+                const endTimeInput = row.querySelector(`.end-time[data-day="${day}"][data-shift="${shift}"]`);
+                const hoursCell = row.querySelector(`.hours-cell[data-day="${day}"][data-shift="${shift}"]`);
+                const sleepoverCheckbox = row.querySelector(`.sleepover-checkbox[data-day="${day}"][data-shift="${shift}"]`);
+
+                if (startTimeInput.value && endTimeInput.value) {
+                    // Calculate hours
+                    const startTime = new Date(`${day}T${startTimeInput.value}`);
+                    const endTime = new Date(`${day}T${endTimeInput.value}`);
+
+                    // Handle overnight shifts
+                    let hours;
+                    if (endTime < startTime) {
+                        // Add a day to end time for overnight shifts
+                        endTime.setDate(endTime.getDate() + 1);
+                    }
+
+                    hours = (endTime - startTime) / (1000 * 60 * 60);
+
+                    // Update hours cell
+                    const formattedHours = Math.max(0, hours).toFixed(2);
+                    hoursCell.textContent = formattedHours;
+
+                    // Add to totals
+                    totalHours += parseFloat(formattedHours);
+                    if (parseFloat(formattedHours) > 0) {
+                        daysWorked.add(day);
+                        shiftsWorked++;
+                    }
+
+                    // Count sleepovers
+                    if (sleepoverCheckbox.checked) {
+                        sleepovers++;
+                    }
+                } else {
+                    hoursCell.textContent = '0.00';
+                }
+            });
+
+            // Update summary
+            document.getElementById('totalHours').textContent = totalHours.toFixed(2);
+            document.getElementById('summaryTotalHours').textContent = totalHours.toFixed(2);
+            document.getElementById('daysWorked').textContent = daysWorked.size;
+            document.getElementById('totalShifts').textContent = shiftsWorked;
+            document.getElementById('totalSleepovers').textContent = sleepovers;
+        }
+
+        // Save timesheet data to localStorage
+        function saveTimesheet() {
+            const weekStarting = document.getElementById('weekStarting').value;
+            const supportWorkerName = document.getElementById('supportWorkerName').value;
+
+            const timesheetData = {
+                weekStarting,
+                supportWorkerName,
+                shifts: []
+            };
+
+            // Collect data from all shifts
+            const shiftRows = document.querySelectorAll('.shift-row');
+            shiftRows.forEach(row => {
+                const day = row.dataset.day;
+                const shift = row.dataset.shift;
+
+                const startTime = row.querySelector(`.start-time[data-day="${day}"][data-shift="${shift}"]`).value;
+                const endTime = row.querySelector(`.end-time[data-day="${day}"][data-shift="${shift}"]`).value;
+                const client = row.querySelector(`.client-select[data-day="${day}"][data-shift="${shift}"]`).value;
+                const isSleepover = row.querySelector(`.sleepover-checkbox[data-day="${day}"][data-shift="${shift}"]`).checked;
+                const hours = row.querySelector(`.hours-cell[data-day="${day}"][data-shift="${shift}"]`).textContent;
+
+                // Only save shifts with data
+                if (startTime || endTime || client || isSleepover) {
+                    timesheetData.shifts.push({
+                        day,
+                        shift,
+                        startTime,
+                        endTime,
+                        client,
+                        isSleepover,
+                        hours
+                    });
+                }
+            });
+
+            // Save to localStorage
+            try {
+                localStorage.setItem(`timesheet_${weekStarting}`, JSON.stringify(timesheetData));
+                return true;
+            } catch (e) {
+                console.error("Error saving timesheet:", e);
+                alert("There was an error saving your timesheet. Your browser might have storage restrictions.");
+                return false;
+            }
+        }
+
+        // Load timesheet data from localStorage
+        function loadTimesheet() {
+            const weekStarting = document.getElementById('weekStarting').value;
+            const savedData = localStorage.getItem(`timesheet_${weekStarting}`);
+
+            if (savedData) {
+                try {
+                    const timesheetData = JSON.parse(savedData);
+
+                    // Set support worker name
+                    document.getElementById('supportWorkerName').value = timesheetData.supportWorkerName || '';
+
+                    // Clear all inputs first
+                    clearInputs();
+
+                    // Populate shifts
+                    timesheetData.shifts.forEach(shiftData => {
+                        const { day, shift, startTime, endTime, client, isSleepover } = shiftData;
+
+                        const row = document.querySelector(`.shift-row[data-day="${day}"][data-shift="${shift}"]`);
+                        if (row) {
+                            row.querySelector(`.start-time[data-day="${day}"][data-shift="${shift}"]`).value = startTime || '';
+                            row.querySelector(`.end-time[data-day="${day}"][data-shift="${shift}"]`).value = endTime || '';
+                            row.querySelector(`.client-select[data-day="${day}"][data-shift="${shift}"]`).value = client || '';
+
+                            const sleepoverCheckbox = row.querySelector(`.sleepover-checkbox[data-day="${day}"][data-shift="${shift}"]`);
+                            sleepoverCheckbox.checked = isSleepover || false;
+
+                            // Apply sleepover styling if needed
+                            if (isSleepover) {
+                                row.classList.add('sleepover-checked');
+                            } else {
+                                row.classList.remove('sleepover-checked');
+                            }
+                        }
+                    });
+
+                    // Recalculate hours
+                    calculateHours();
+                    return true;
+                } catch (e) {
+                    console.error("Error loading timesheet:", e);
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        // Clear all inputs in the timesheet
+        function clearInputs() {
+            const inputs = document.querySelectorAll('#timesheetBody input, #timesheetBody select');
+            inputs.forEach(input => {
+                if (input.type === 'checkbox') {
+                    input.checked = false;
+                } else {
+                    input.value = '';
+                }
+            });
+
+            const hoursCells = document.querySelectorAll('.hours-cell');
+            hoursCells.forEach(cell => {
+                cell.textContent = '0.00';
+            });
+
+            // Remove sleepover styling
+            const shiftRows = document.querySelectorAll('.shift-row');
+            shiftRows.forEach(row => {
+                row.classList.remove('sleepover-checked');
+            });
+
+            calculateHours();
+        }
+
+        // Clear the entire timesheet
+        function clearTimesheet() {
+            clearInputs();
+            document.getElementById('supportWorkerName').value = '';
+
+            // Remove from localStorage
+            const weekStarting = document.getElementById('weekStarting').value;
+            localStorage.removeItem(`timesheet_${weekStarting}`);
+        }
+
+        // Format date for display
+        function formatDisplayDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+    </script>
+
+
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'949bd44a07f932a4',t:'MTc0ODkxODQ2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;" src="./saved_resource.html"></iframe>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+  document.getElementById('printTimesheet').addEventListener('click', async () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    let y = 20;
+    const name = document.getElementById('supportWorkerName').value || '';
+    const week = document.getElementById('weekStarting').value || '';
+
+    doc.setFontSize(14);
+    doc.text(`Support Worker Timesheet Summary`, 105, y, { align: "center" });
+    y += 10;
+    doc.setFontSize(11);
+    doc.text(`Name: ${name}`, 20, y);
+    y += 6;
+    doc.text(`Week Starting: ${week}`, 20, y);
+    y += 10;
+
+    doc.setFontSize(10);
+    doc.text("Date | Shift | Start | End | Hours | Client | Sleepover", 20, y);
+    y += 6;
+
+    document.querySelectorAll('.shift-row').forEach(row => {
+      const day = row.dataset.day;
+      const shift = row.dataset.shift;
+      const start = row.querySelector('.start-time').value;
+      const end = row.querySelector('.end-time').value;
+      const hours = row.querySelector('.hours-cell').textContent;
+      const client = row.querySelector('.client-select').value;
+      const sleep = row.querySelector('.sleepover-checkbox').checked ? 'Yes' : 'No';
+
+      if (start || end || hours !== '0.00') {
+        const line = `${day} | ${shift} | ${start} | ${end} | ${hours} | ${client} | ${sleep}`;
+        doc.text(line, 20, y);
+        y += 6;
+        if (y > 270) { doc.addPage(); y = 20; }
       }
-      attachChangeListeners();
-    }
-
-    function calculateHours() {
-      let total = 0;
-      document.querySelectorAll('.shift-row').forEach(row => {
-        const day = row.dataset.day;
-        const shift = row.dataset.shift;
-        const startInput = row.querySelector(`.start-time[data-day="${day}"][data-shift="${shift}"]`);
-        const endInput = row.querySelector(`.end-time[data-day="${day}"][data-shift="${shift}"]`);
-        const hoursCell = row.querySelector(`.hours-cell[data-day="${day}"][data-shift="${shift}"]`);
-
-        if (startInput && endInput && hoursCell && startInput.value && endInput.value) {
-          let start = new Date(`${day}T${startInput.value}`);
-          let end = new Date(`${day}T${endInput.value}`);
-          if (end < start) end.setDate(end.getDate() + 1);
-
-          const diff = (end - start) / 3600000;
-          const hrs = Math.max(0, diff).toFixed(2);
-          hoursCell.textContent = hrs;
-          total += parseFloat(hrs);
-        } else if (hoursCell) {
-          hoursCell.textContent = '0.00';
-        }
-      });
-      document.getElementById('totalHours').textContent = total.toFixed(2);
-    }
-
-    function attachChangeListeners() {
-      document.querySelectorAll('input, select').forEach(el => {
-        el.addEventListener('change', calculateHours);
-      });
-    }
-
-    document.getElementById('weekStarting').addEventListener('change', (e) => {
-      generateTimesheet(e.target.value);
     });
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const today = new Date();
-      const sunday = new Date(today);
-      sunday.setDate(today.getDate() - today.getDay());
-      const isoDate = sunday.toISOString().split('T')[0];
-      document.getElementById('weekStarting').value = isoDate;
-      generateTimesheet(isoDate);
-    });
+    y += 10;
+    doc.setFontSize(11);
+    doc.text(`Total Hours: ${document.getElementById('summaryTotalHours').textContent}`, 20, y); y += 6;
+    doc.text(`Days Worked: ${document.getElementById('daysWorked').textContent}`, 20, y); y += 6;
+    doc.text(`Total Shifts: ${document.getElementById('totalShifts').textContent}`, 20, y); y += 6;
+    doc.text(`Sleepovers: ${document.getElementById('totalSleepovers').textContent}`, 20, y);
 
-    document.getElementById('downloadPDF').addEventListener('click', () => {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-
-      let y = 20;
-      doc.setFontSize(12);
-      doc.text(`Support Worker Timesheet`, 20, y);
-      y += 8;
-      doc.text(`Name: ${document.getElementById('supportWorkerName').value || ''}`, 20, y);
-      y += 6;
-      doc.text(`Week Starting: ${document.getElementById('weekStarting').value || ''}`, 20, y);
-      y += 10;
-
-      doc.text("Date | Shift | Start | End | Hours | Client | Sleepover", 20, y);
-      y += 6;
-
-      document.querySelectorAll('tr[data-day]').forEach(row => {
-        const day = row.dataset.day;
-        const shift = row.dataset.shift;
-        const start = row.querySelector('.start-time').value;
-        const end = row.querySelector('.end-time').value;
-        const hours = row.querySelector('.hours-cell').textContent;
-        const client = row.querySelector('.client-select').value;
-        const sleep = row.querySelector('.sleepover-checkbox').checked ? 'Yes' : 'No';
-
-        if (start || end || hours !== '0.00') {
-          const line = `${day} | ${shift} | ${start} | ${end} | ${hours} | ${client} | ${sleep}`;
-          doc.text(line, 20, y);
-          y += 6;
-          if (y > 280) { doc.addPage(); y = 20; }
-        }
-      });
-
-      y += 10;
-      doc.text(`Total Hours: ${document.getElementById('totalHours').textContent}`, 20, y);
-
-      doc.save("timesheet.pdf");
-    });
-  </script>
+    doc.save("timesheet.pdf");
+  });
+    </script>
 </body>
 </html>
